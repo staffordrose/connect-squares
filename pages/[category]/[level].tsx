@@ -1,4 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import { Box } from '@chakra-ui/react';
 import { Piece } from '@/common/types';
 import { toTitleCase } from '@/common/utils';
@@ -24,12 +25,24 @@ const Level: NextPage<{
     }
   };
 
+  const categoryTitle = toTitleCase(category);
+
   return (
     <>
+      <Head>
+        <title>
+          Level {levelNum} | {categoryTitle} | Connect Squares
+        </title>
+        <meta
+          name='description'
+          content={`Complete level ${levelNum} to advance!`}
+        />
+      </Head>
+
       <Header
-        aria-label={`Go back to categories`}
+        aria-label={`Go back to ${categoryTitle} category`}
         backHref={`/${category}`}
-        title={`${toTitleCase(category)} ${levelNum}`}
+        title={`${categoryTitle} ${levelNum}`}
       />
 
       <Box

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Box, Center, Grid, Spinner } from '@chakra-ui/react';
 import dayjs from 'dayjs';
@@ -37,12 +38,22 @@ const Category: NextPage<{
     );
   }
 
+  const categoryTitle = toTitleCase(category);
+
   return (
     <>
+      <Head>
+        <title>{categoryTitle} Levels | Connect Squares</title>
+        <meta
+          name='description'
+          content={`Choose a ${categoryTitle} level to play. You can play up to 100 levels, and they get more difficult as you go!`}
+        />
+      </Head>
+
       <Header
         aria-label={`Go back to categories`}
         backHref='/'
-        title={toTitleCase(category)}
+        title={categoryTitle}
       />
 
       <Box

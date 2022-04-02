@@ -1,3 +1,6 @@
+export { default as CatExpertIcon } from './CatExpertIcon';
+export { default as CatHardIcon } from './CatHardIcon';
+export { default as CatNormalIcon } from './CatNormalIcon';
 export { default as LockIcon } from './LockIcon';
 export { default as MoveXIcon } from './MoveXIcon';
 export { default as MoveXRotateIcon } from './MoveXRotateIcon';

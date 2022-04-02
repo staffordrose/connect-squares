@@ -1,0 +1,191 @@
+[
+  {
+    "type": "xyr",
+    "connectors": [
+      1,
+      0,
+      0,
+      1
+    ],
+    "rotate": 180
+  },
+  {},
+  {
+    "type": "yr",
+    "connectors": [
+      3,
+      4,
+      0,
+      0
+    ],
+    "rotate": 180
+  },
+  {
+    "type": "yr",
+    "connectors": [
+      0,
+      2,
+      4,
+      2
+    ],
+    "rotate": 270
+  },
+  {},
+  {},
+  {},
+  {
+    "type": "xr",
+    "connectors": [
+      0,
+      4,
+      1,
+      0
+    ],
+    "rotate": 180
+  },
+  {},
+  {},
+  {
+    "type": "yr",
+    "connectors": [
+      2,
+      1,
+      2,
+      4
+    ],
+    "rotate": 90
+  },
+  {
+    "type": "y",
+    "connectors": [
+      0,
+      0,
+      1,
+      4
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "xr",
+    "connectors": [
+      4,
+      4,
+      4,
+      2
+    ],
+    "rotate": 0
+  },
+  {},
+  {
+    "type": "yr",
+    "connectors": [
+      0,
+      2,
+      4,
+      4
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+    "type": "f",
+    "connectors": [
+      3,
+      4,
+      3,
+      0
+    ],
+    "rotate": 0
+  },
+  {},
+  {
+    "type": "y",
+    "connectors": [
+      0,
+      4,
+      2,
+      2
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "xr",
+    "connectors": [
+      4,
+      3,
+      4,
+      4
+    ],
+    "rotate": 180
+  },
+  {},
+  {
+    "type": "x",
+    "connectors": [
+      4,
+      0,
+      4,
+      4
+    ],
+    "rotate": 0
+  },
+  {},
+  {
+    "type": "xy",
+    "connectors": [
+      1,
+      4,
+      0,
+      0
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "xyr",
+    "connectors": [
+      2,
+      0,
+      0,
+      3
+    ],
+    "rotate": 270
+  },
+  {},
+  {},
+  {},
+  {
+    "type": "yr",
+    "connectors": [
+      4,
+      2,
+      3,
+      4
+    ],
+    "rotate": 90
+  },
+  {},
+  {
+    "type": "yr",
+    "connectors": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "rotate": 270
+  },
+  {
+    "type": "xr",
+    "connectors": [
+      4,
+      1,
+      0,
+      0
+    ],
+    "rotate": 180
+  }
+]

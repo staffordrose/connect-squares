@@ -1,0 +1,63 @@
+[
+  {},
+  {
+    "type": "xyr",
+    "connectors": [
+      0,
+      0,
+      3,
+      2
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {
+    "type": "xyr",
+    "connectors": [
+      0,
+      0,
+      0,
+      3
+    ],
+    "rotate": 180
+  },
+  {},
+  {
+    "type": "xyr",
+    "connectors": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "rotate": 180
+  },
+  {},
+  {},
+  {
+    "type": "r",
+    "connectors": [
+      0,
+      2,
+      0,
+      1
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {},
+  {},
+  {
+    "type": "r",
+    "connectors": [
+      3,
+      3,
+      0,
+      0
+    ],
+    "rotate": 180
+  },
+  {}
+]

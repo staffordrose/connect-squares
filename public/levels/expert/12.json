@@ -1,0 +1,155 @@
+[
+  {},
+  {
+    "type": "xr",
+    "connectors": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "rotate": 180
+  },
+  {
+    "type": "xr",
+    "connectors": [
+      0,
+      0,
+      2,
+      1
+    ],
+    "rotate": 180
+  },
+  {
+    "type": "xy",
+    "connectors": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {
+    "type": "f",
+    "connectors": [
+      1,
+      2,
+      3,
+      0
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {
+    "type": "y",
+    "connectors": [
+      0,
+      1,
+      1,
+      1
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "f",
+    "connectors": [
+      0,
+      1,
+      0,
+      1
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "xr",
+    "connectors": [
+      3,
+      0,
+      0,
+      1
+    ],
+    "rotate": 270
+  },
+  {
+    "type": "f",
+    "connectors": [
+      3,
+      3,
+      0,
+      0
+    ],
+    "rotate": 0
+  },
+  {},
+  {
+    "type": "xr",
+    "connectors": [
+      3,
+      0,
+      0,
+      3
+    ],
+    "rotate": 180
+  },
+  {
+    "type": "xy",
+    "connectors": [
+      0,
+      0,
+      3,
+      0
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {},
+  {
+    "type": "yr",
+    "connectors": [
+      2,
+      4,
+      3,
+      2
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+    "type": "xyr",
+    "connectors": [
+      2,
+      1,
+      0,
+      4
+    ],
+    "rotate": 90
+  },
+  {},
+  {},
+  {},
+  {},
+  {
+    "type": "yr",
+    "connectors": [
+      0,
+      3,
+      1,
+      0
+    ],
+    "rotate": 180
+  },
+  {},
+  {},
+  {},
+  {},
+  {}
+]

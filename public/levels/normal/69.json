@@ -1,0 +1,117 @@
+[
+  {
+    "type": "xyr",
+    "connectors": [
+      2,
+      4,
+      0,
+      0
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "r",
+    "connectors": [
+      0,
+      0,
+      2,
+      0
+    ],
+    "rotate": 90
+  },
+  {
+    "type": "xy",
+    "connectors": [
+      1,
+      1,
+      4,
+      2
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "xyr",
+    "connectors": [
+      3,
+      3,
+      4,
+      1
+    ],
+    "rotate": 270
+  },
+  {
+    "type": "xy",
+    "connectors": [
+      4,
+      2,
+      0,
+      4
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "f",
+    "connectors": [
+      2,
+      2,
+      1,
+      0
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "r",
+    "connectors": [
+      0,
+      0,
+      3,
+      2
+    ],
+    "rotate": 90
+  },
+  {},
+  {
+    "type": "f",
+    "connectors": [
+      0,
+      2,
+      2,
+      0
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {},
+  {
+    "type": "xy",
+    "connectors": [
+      0,
+      0,
+      2,
+      3
+    ],
+    "rotate": 0
+  },
+  {},
+  {
+    "type": "r",
+    "connectors": [
+      4,
+      3,
+      0,
+      2
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "r",
+    "connectors": [
+      2,
+      0,
+      0,
+      3
+    ],
+    "rotate": 270
+  }
+]

@@ -19,19 +19,19 @@ const Board = ({ level, onComplete, nextHref }: BoardProps) => {
   const hasErrors = useBoardErrors(board);
 
   const { isMuted } = useVolumeContext();
-  const { successSound, moveSound, rotateSound } = useBoardSounds();
+  const { playMove, playRotate, playSuccess } = useBoardSounds();
 
   const squaresRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!hasErrors) {
-      !isMuted && successSound?.play();
+      !isMuted && playSuccess();
       onComplete();
     }
-  }, [hasErrors, onComplete, isMuted, successSound]);
+  }, [hasErrors, onComplete, isMuted, playSuccess]);
 
   const rotatePiece = (i: number) => {
-    !isMuted && rotateSound?.play();
+    !isMuted && playRotate();
     setBoard((prevBoard) => ({
       ...prevBoard,
       [i]: {
@@ -52,7 +52,7 @@ const Board = ({ level, onComplete, nextHref }: BoardProps) => {
     });
 
     if (to >= 0 && !board[to]?.type) {
-      !isMuted && moveSound?.play();
+      !isMuted && playMove();
       setBoard((prevBoard) => ({
         ...prevBoard,
         [from]: {} as Piece,

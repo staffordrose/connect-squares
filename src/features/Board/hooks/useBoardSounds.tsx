@@ -1,17 +1,11 @@
-import { useState } from 'react';
+import useSound from 'use-sound';
 
 const useBoardSounds = () => {
-  const [successSound] = useState(
-    typeof Audio !== 'undefined' ? new Audio('/sounds/success.wav') : null
-  );
-  const [moveSound] = useState(
-    typeof Audio !== 'undefined' ? new Audio('/sounds/click.wav') : null
-  );
-  const [rotateSound] = useState(
-    typeof Audio !== 'undefined' ? new Audio('/sounds/swoosh.wav') : null
-  );
+  const [playMove] = useSound('/sounds/click.wav');
+  const [playRotate] = useSound('/sounds/swoosh.wav');
+  const [playSuccess] = useSound('/sounds/success.wav');
 
-  return { successSound, moveSound, rotateSound };
+  return { playMove, playRotate, playSuccess };
 };
 
 export default useBoardSounds;

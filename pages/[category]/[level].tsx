@@ -65,8 +65,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (category) {
     try {
       level = fs.readFileSync(
-        path.join(__dirname, `../../../../public/levels/${category}`) +
-          `/${levelNum}.json`,
+        path.join(process.cwd(), `/public/levels/${category}/${levelNum}.json`),
         'utf8'
       );
       level = JSON.parse(level);

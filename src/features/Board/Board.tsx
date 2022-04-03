@@ -16,6 +16,25 @@ interface BoardProps {
 const Board = ({ level, onComplete, nextHref }: BoardProps) => {
   const { boardRef, board, setBoard, boardSize } = useBoard(level);
 
+  // Prevent page scrolling on touch events within the board.
+  useEffect(() => {
+    const preventPageScroll = (e: TouchEvent) => {
+      e.preventDefault();
+    };
+
+    const ref = boardRef.current;
+
+    if (ref) {
+      ref.addEventListener('touchmove', preventPageScroll, {
+        passive: false,
+      });
+
+      return () => {
+        ref.removeEventListener('touchmove', preventPageScroll);
+      };
+    }
+  }, [boardRef]);
+
   const hasErrors = useBoardErrors(board);
 
   const { isMuted } = useVolumeContext();

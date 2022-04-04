@@ -2,10 +2,22 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Box, Button, Grid, Heading, Icon, IconButton } from '@chakra-ui/react';
+import type { As } from '@chakra-ui/react';
+import useSound from 'use-sound';
 import { MdArrowBack, MdVolumeUp, MdVolumeOff } from 'react-icons/md';
 import { useVolumeContext } from '@/context';
 
-const VolumeToggle = () => {
+const VolumeToggle = ({
+  isMuted,
+  toggleVolume,
+  playSoundOn,
+}: {
+  isMuted: boolean;
+  toggleVolume: () => void;
+  playSoundOn: () => void;
+}) => {
+  const [playSoundOff] = useSound('/sounds/click.mp3', { volume: 0.125 });
+
   // Prevent hydration error by waiting until component is mounted to display volume icon.
   const [isMounted, setIsMounted] = useState(false);
 
@@ -14,51 +26,48 @@ const VolumeToggle = () => {
     return () => setIsMounted(false);
   }, []);
 
-  const { isMuted, toggleVolume } = useVolumeContext();
-
   if (!isMounted) return null;
 
   return (
     <IconButton
       justifySelf='end'
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
+      variant='ghost'
+      colorScheme='cyan'
       minW={[14, 16]}
       minH={[14, 16]}
       color='cyan.900'
-      bg='transparent'
-      boxShadow='sm'
-      _hover={{
-        bg: 'cyan.50',
-        boxShadow: 'md',
-        transform: 'translateY(-1px)',
-      }}
       aria-label={`Turn Volume ${isMuted ? 'On' : 'Off'}`}
       icon={<Icon as={isMuted ? MdVolumeOff : MdVolumeUp} boxSize={[10, 12]} />}
-      onClick={toggleVolume}
+      onClick={() => {
+        toggleVolume();
+        isMuted ? playSoundOn() : playSoundOff();
+      }}
     />
   );
 };
 
-interface HeaderProps {
-  ['aria-label']: string;
-  backHref: string;
+interface AppBarProps {
+  as?: As;
+  ['aria-label']?: string;
+  backHref?: string;
   title?: string;
 }
 
-const Header = ({ backHref, title, ...props }: HeaderProps) => {
+const AppBar = ({ as, backHref, title, ...props }: AppBarProps) => {
   const router = useRouter();
+
+  const volumeContext = useVolumeContext();
+  const { isMuted } = volumeContext;
+  const [playClick] = useSound('/sounds/click.mp3', { volume: 0.625 });
 
   return (
     <Box
-      as='header'
+      as={as}
       position='sticky'
       zIndex='modal'
       top={0}
       left={0}
-      backdropFilter='auto'
-      backdropBlur='8px'
+      backdropFilter='blur(4px)'
       _after={{
         content: '""',
         position: 'absolute',
@@ -67,7 +76,7 @@ const Header = ({ backHref, title, ...props }: HeaderProps) => {
         left: 0,
         w: '100%',
         h: '100%',
-        bg: 'cyan.100',
+        bg: 'cyan.200',
         opacity: 0.25,
       }}
     >
@@ -77,36 +86,34 @@ const Header = ({ backHref, title, ...props }: HeaderProps) => {
         alignItems='center'
         w='100%'
         maxW={1280}
-        minH={24}
+        minH={[20, 24]}
         mx='auto'
         px={[4, null, 6]}
       >
-        <Button
-          {...props}
-          variant='unstyled'
-          display='flex'
-          justifyContent='center'
-          alignItems='center'
-          minH={[14, 16]}
-          pl={1}
-          pr={[1, 2]}
-          color='cyan.900'
-          boxShadow='sm'
-          _hover={{
-            bg: 'cyan.50',
-            boxShadow: 'md',
-            transform: 'translateY(-1px)',
-          }}
-          onClick={() => router.push(backHref)}
-        >
-          <Icon as={MdArrowBack} boxSize={[10, 12]} />
-          <Image
-            src='/logo.svg'
-            alt='Connect Squares Logo'
-            width={48}
-            height={48}
-          />
-        </Button>
+        {backHref ? (
+          <Button
+            {...props}
+            variant='ghost'
+            minH={[14, 16]}
+            pl={1}
+            pr={[1, 2]}
+            color='cyan.900'
+            onClick={() => {
+              !isMuted && playClick();
+              router.push(backHref);
+            }}
+          >
+            <Icon as={MdArrowBack} boxSize={[10, 12]} />
+            <Image
+              src='/logo.svg'
+              alt='Connect Squares Logo'
+              width={48}
+              height={48}
+            />
+          </Button>
+        ) : (
+          <span />
+        )}
 
         {title ? (
           <Heading
@@ -121,10 +128,10 @@ const Header = ({ backHref, title, ...props }: HeaderProps) => {
           <span />
         )}
 
-        <VolumeToggle />
+        <VolumeToggle {...volumeContext} playSoundOn={playClick} />
       </Grid>
     </Box>
   );
 };
 
-export default Header;
+export default AppBar;

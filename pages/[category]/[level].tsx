@@ -1,9 +1,8 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { Piece } from '@/common/types';
 import { toTitleCase } from '@/common/utils';
-import { Header } from '@/components';
 import { Board } from '@/features';
 
 const Level: NextPage<{
@@ -11,7 +10,7 @@ const Level: NextPage<{
   levelNum: number;
   level: Piece[];
 }> = ({ category, levelNum, level }) => {
-  const onComplete = () => {
+  const onSuccess = () => {
     if (typeof window !== 'undefined') {
       const lsLevels = localStorage.getItem('cs-levels');
       let levels = lsLevels ? JSON.parse(lsLevels) : {};
@@ -39,26 +38,24 @@ const Level: NextPage<{
         />
       </Head>
 
-      <Header
-        aria-label={`Go back to ${categoryTitle} category`}
-        backHref={`/${category}`}
-        title={`${categoryTitle} ${levelNum}`}
-      />
-
-      <Box
+      <Flex
         as='main'
+        justifyContent='center'
+        alignItems='center'
         w='100%'
         maxW={1280}
+        minH={['calc(100vh - 80px)', 'calc(100vh - 96px)']}
         mx='auto'
         px={[4, null, 6]}
         py={[8, null, 12]}
       >
         <Board
           level={level}
-          onComplete={onComplete}
+          levelNum={levelNum}
+          onSuccess={onSuccess}
           nextHref={levelNum < 100 ? `/${category}/${levelNum + 1}` : undefined}
         />
-      </Box>
+      </Flex>
     </>
   );
 };

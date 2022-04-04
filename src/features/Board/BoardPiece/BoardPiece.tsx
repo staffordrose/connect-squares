@@ -24,7 +24,7 @@ const pieceColors = {
   xy: 'green',
   xr: 'brown',
   yr: 'brown',
-  xyr: 'blue',
+  xyr: 'purple',
 };
 
 const pieceIcons = {
@@ -40,6 +40,7 @@ const pieceIcons = {
 
 interface BoardPieceProps extends Piece {
   boardRef: MutableRefObject<HTMLDivElement | null>;
+  pauseAnimation: boolean;
   rotatePiece: () => void;
   movePiece: (type: PieceType, point: Point) => void;
   children?: ReactNode;
@@ -47,6 +48,7 @@ interface BoardPieceProps extends Piece {
 
 const BoardPiece = ({
   boardRef,
+  pauseAnimation,
   type,
   connectors,
   rotate,
@@ -58,6 +60,8 @@ const BoardPiece = ({
   const isDragging = useRef(false);
 
   const color = type ? pieceColors[type] : null;
+
+  const absRotate = rotate % 360;
 
   return (
     <MotionBox
@@ -86,7 +90,7 @@ const BoardPiece = ({
       initial={{ rotate }}
       animate={{ rotate }}
       transition={{
-        duration: 0.3,
+        duration: pauseAnimation ? 0 : 0.3,
       }}
       onTap={() => {
         if (!isDragging.current && type.includes('r')) {
@@ -105,51 +109,75 @@ const BoardPiece = ({
         <PieceConnectors
           key={i}
           count={count}
-          bottom={i === 2 ? 0 : undefined}
           rotate={i * 90}
+          relRotate={(360 - ((i * 90 + absRotate) % 360)) % 360}
         />
       ))}
 
-      <Center
+      <Box
         position='absolute'
         zIndex={1}
         top='12.5%'
         left='12.5%'
         w='75%'
         h='75%'
-        borderWidth={1}
-        borderStyle='solid'
-        borderColor={`${color}.600`}
-        borderRadius='6.25%'
-        bgGradient={`radial(${color}.400, ${color}.500)`}
+        borderRadius='12.5%'
+        bg={`${color}.700`}
+        transform={
+          absRotate === 270
+            ? 'translateX(-10%)'
+            : absRotate === 180
+            ? 'translateY(-10%)'
+            : absRotate === 90
+            ? 'translateX(10%)'
+            : 'translateY(10%)'
+        }
+        transition='transform 0.3s'
       >
-        <MotionBox
-          display='flex'
-          justifyContent='center'
-          alignItems='center'
+        <Center
           w='100%'
           h='100%'
-          initial={
-            ['xr', 'yr'].includes(type)
-              ? {
-                  rotate: -rotate,
-                }
-              : {}
+          borderRadius='12.5%'
+          bgGradient={`radial(${color}.400, ${color}.500)`}
+          transform={
+            absRotate === 270
+              ? 'translateX(10%)'
+              : absRotate === 180
+              ? 'translateY(10%)'
+              : absRotate === 90
+              ? 'translateX(-10%)'
+              : 'translateY(-10%)'
           }
-          animate={
-            ['xr', 'yr'].includes(type)
-              ? {
-                  rotate: -rotate,
-                }
-              : {}
-          }
-          transition={{
-            duration: 0.3,
-          }}
+          transition='transform 0.3s'
         >
-          <Icon as={pieceIcons[type]} boxSize='75%' color='whiteAlpha.700' />
-        </MotionBox>
-      </Center>
+          <MotionBox
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+            w='100%'
+            h='100%'
+            initial={
+              ['xr', 'yr'].includes(type)
+                ? {
+                    rotate: -rotate,
+                  }
+                : {}
+            }
+            animate={
+              ['xr', 'yr'].includes(type)
+                ? {
+                    rotate: -rotate,
+                  }
+                : {}
+            }
+            transition={{
+              duration: pauseAnimation ? 0 : 0.3,
+            }}
+          >
+            <Icon as={pieceIcons[type]} boxSize='75%' color='whiteAlpha.800' />
+          </MotionBox>
+        </Center>
+      </Box>
     </MotionBox>
   );
 };

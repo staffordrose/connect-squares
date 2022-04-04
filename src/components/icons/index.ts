@@ -1,3 +1,4 @@
+export { default as BottomConnectorIcon } from './BottomConnectorIcon';
 export { default as CatExpertIcon } from './CatExpertIcon';
 export { default as CatHardIcon } from './CatHardIcon';
 export { default as CatNormalIcon } from './CatNormalIcon';
@@ -9,3 +10,4 @@ export { default as MoveXYRotateIcon } from './MoveXYRotateIcon';
 export { default as MoveYIcon } from './MoveYIcon';
 export { default as MoveYRotateIcon } from './MoveYRotateIcon';
 export { default as RotateIcon } from './RotateIcon';
+export { default as TopConnectorIcon } from './TopConnectorIcon';

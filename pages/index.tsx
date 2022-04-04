@@ -3,9 +3,11 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Flex, Grid, Heading, Icon, Image, Text } from '@chakra-ui/react';
 import type { As } from '@chakra-ui/react';
+import useSound from 'use-sound';
 import { categories } from '@/common/data';
-import { XLButtonLink } from '@/components';
+import { PressableLink } from '@/components';
 import { CatExpertIcon, CatHardIcon, CatNormalIcon } from '@/components';
+import { useVolumeContext } from '@/context';
 
 const categoryIcons: { [category: string]: ReactNode } = {
   Normal: CatNormalIcon,
@@ -14,6 +16,9 @@ const categoryIcons: { [category: string]: ReactNode } = {
 };
 
 const Home: NextPage = () => {
+  const { isMuted } = useVolumeContext();
+  const [playClick] = useSound('/sounds/click.mp3', { volume: 0.625 });
+
   return (
     <>
       <Head>
@@ -29,7 +34,7 @@ const Home: NextPage = () => {
         gap={8}
         alignContent='center'
         w='100%'
-        minH='calc(100vh - 56px)'
+        minH={['calc(100vh - 80px)', 'calc(100vh - 96px)']}
       >
         <Flex
           as='header'
@@ -60,26 +65,29 @@ const Home: NextPage = () => {
           justifyContent='center'
           gap={[4, null, 6]}
           w='100%'
-          maxW={260}
+          maxW={240}
           mx='auto'
           px={[4, null, 6]}
           py={8}
         >
           {categories.map((category) => (
-            <XLButtonLink
+            <PressableLink
               key={category}
               href={`/${category.toLowerCase()}`}
               pl={4}
               justifyContent='flex-start'
-              color='cyan.700'
-              bg='cyan.100'
-              _hover={{ bg: 'cyan.50' }}
+              fontSize='2xl'
+              color='cyan.50'
+              bg='cyan.500'
+              onClick={() => {
+                !isMuted && playClick();
+              }}
             >
               <Icon as={categoryIcons[category] as As} boxSize={12} />
               <Text as='span' ml={4}>
                 {category}
               </Text>
-            </XLButtonLink>
+            </PressableLink>
           ))}
         </Flex>
       </Grid>

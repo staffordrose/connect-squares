@@ -24,8 +24,8 @@ const theme = {
       'html, body': {
         minW: 360,
         minH: '100vh',
-        bg: 'cyan.100',
-        bgGradient: 'linear(to-tr, cyan.100, cyan.200)',
+        bg: 'cyan.200',
+        bgGradient: 'linear(to-tr, cyan.200, cyan.300)',
       },
     },
   },

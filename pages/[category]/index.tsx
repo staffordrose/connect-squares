@@ -4,9 +4,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Box, Center, Grid, Spinner } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import useSound from 'use-sound';
 import { categories } from '@/common/data';
 import { toTitleCase } from '@/common/utils';
-import { Header, XLButton } from '@/components';
+import { PressableButton } from '@/components';
+import { useVolumeContext } from '@/context';
 
 const levels = [...Array(100)];
 
@@ -14,6 +16,9 @@ const Category: NextPage<{
   category: string;
 }> = ({ category }) => {
   const router = useRouter();
+
+  const { isMuted } = useVolumeContext();
+  const [playClick] = useSound('/sounds/click.mp3', { volume: 0.625 });
 
   const [progress, setProgress] = useState<(string | null)[]>([]);
 
@@ -50,12 +55,6 @@ const Category: NextPage<{
         />
       </Head>
 
-      <Header
-        aria-label={`Go back to categories`}
-        backHref='/'
-        title={categoryTitle}
-      />
-
       <Box
         as='main'
         w='100%'
@@ -83,34 +82,25 @@ const Category: NextPage<{
             const isUnlocked = i === 0 || isCompleted || isPrevCompleted;
 
             return (
-              <XLButton
+              <PressableButton
                 key={i}
-                color={
+                color={isCompleted ? 'yellow.50' : 'cyan.50'}
+                bg={isCompleted ? 'yellow.500' : 'cyan.500'}
+                pressableBg={
                   isCompleted
-                    ? 'orange.700'
-                    : isUnlocked
                     ? 'yellow.700'
-                    : 'cyan.700'
-                }
-                bg={
-                  isCompleted
-                    ? 'orange.100'
                     : isUnlocked
-                    ? 'yellow.100'
-                    : 'cyan.100'
+                    ? 'cyan.700'
+                    : 'cyan.500'
                 }
-                _hover={{
-                  bg: isCompleted
-                    ? 'orange.50'
-                    : isUnlocked
-                    ? 'yellow.50'
-                    : 'cyan.100',
-                }}
                 disabled={!isUnlocked}
-                onClick={() => router.push(`/${category}/${i + 1}`)}
+                onClick={() => {
+                  !isMuted && playClick();
+                  router.push(`/${category}/${i + 1}`);
+                }}
               >
                 {i + 1}
-              </XLButton>
+              </PressableButton>
             );
           })}
         </Grid>

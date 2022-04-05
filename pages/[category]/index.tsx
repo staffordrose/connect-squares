@@ -55,20 +55,13 @@ const Category: NextPage<{
         />
       </Head>
 
-      <Box
-        as='main'
-        w='100%'
-        maxW={1280}
-        mx='auto'
-        px={[4, null, 6]}
-        py={[8, null, 12]}
-      >
+      <Box as='main' w='100%' maxW={1280} mx='auto' px={[4, 6]} py={[8, 12]}>
         <Grid
           templateColumns={[
             'repeat(3, 1fr)',
             'repeat(auto-fit, minmax(120px, 1fr))',
           ]}
-          gap={[4, null, 6]}
+          gap={[4, 6]}
           mb={16}
         >
           {levels.map((_, i) => {

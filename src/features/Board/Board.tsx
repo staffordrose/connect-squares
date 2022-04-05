@@ -140,7 +140,7 @@ const Board = ({ level, levelNum, onSuccess, nextHref }: BoardProps) => {
           boardSize === 6
             ? [360, 420, 480]
             : boardSize === 5
-            ? [360, null, 420]
+            ? [360, 420]
             : [360]
         }
         borderRadius={10}

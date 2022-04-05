@@ -18,8 +18,8 @@ const Error: NextPage = () => {
       maxW={1280}
       minH={['calc(100vh - 80px - 56px)', 'calc(100vh - 96px - 56px)']}
       mx='auto'
-      px={[4, null, 6]}
-      py={[8, null, 12]}
+      px={[4, 6]}
+      py={[8, 12]}
     >
       <Box as='header'>
         <Heading

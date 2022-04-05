@@ -46,8 +46,8 @@ const Level: NextPage<{
         maxW={1280}
         minH={['calc(100vh - 80px)', 'calc(100vh - 96px)']}
         mx='auto'
-        px={[4, null, 6]}
-        py={[8, null, 12]}
+        px={[4, 6]}
+        py={[8, 12]}
       >
         <Board
           level={level}

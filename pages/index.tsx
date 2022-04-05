@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Flex, Grid, Heading, Icon, Image, Text } from '@chakra-ui/react';
+import { Flex, Heading, Icon, Image, Text } from '@chakra-ui/react';
 import type { As } from '@chakra-ui/react';
 import useSound from 'use-sound';
 import { categories } from '@/common/data';
@@ -29,68 +29,61 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <Grid
-        templateRows='auto auto'
-        gap={8}
-        alignContent='center'
+      <Flex
+        as='header'
+        flexDir='column'
+        gap={3}
+        justifyContent='center'
+        alignItems='center'
         w='100%'
-        minH={['calc(100vh - 80px)', 'calc(100vh - 96px)']}
+        maxW={1280}
+        mx='auto'
+        px={[4, 6]}
+        py={[6, 8]}
       >
-        <Flex
-          as='header'
-          flexDir='column'
-          gap={3}
-          justifyContent='center'
-          alignItems='center'
-          w='100%'
-          maxW={1280}
-          mx='auto'
-          p={[4, null, 6]}
-        >
-          <Image
-            src='/logo.svg'
-            alt='Connect Squares Logo'
-            width={[160, null, 240]}
-            height={[160, null, 240]}
-          />
+        <Image
+          src='/logo.svg'
+          alt='Connect Squares Logo'
+          w={[228, 266]}
+          h={[177.6, 207.2]}
+        />
 
-          <Heading as='h1' color='cyan.900'>
-            Connect Squares
-          </Heading>
-        </Flex>
+        <Heading as='h1' color='cyan.900'>
+          Connect Squares
+        </Heading>
+      </Flex>
 
-        <Flex
-          as='main'
-          flexDir='column'
-          justifyContent='center'
-          gap={[4, null, 6]}
-          w='100%'
-          maxW={240}
-          mx='auto'
-          px={[4, null, 6]}
-          py={8}
-        >
-          {categories.map((category) => (
-            <PressableLink
-              key={category}
-              href={`/${category.toLowerCase()}`}
-              pl={4}
-              justifyContent='flex-start'
-              fontSize='2xl'
-              color='cyan.50'
-              bg='cyan.500'
-              onClick={() => {
-                !isMuted && playClick();
-              }}
-            >
-              <Icon as={categoryIcons[category] as As} boxSize={12} />
-              <Text as='span' ml={4}>
-                {category}
-              </Text>
-            </PressableLink>
-          ))}
-        </Flex>
-      </Grid>
+      <Flex
+        as='main'
+        flexDir='column'
+        justifyContent='center'
+        gap={[4, 6]}
+        w='100%'
+        maxW={[220, 240]}
+        mx='auto'
+        px={[4, 6]}
+        py={[6, 8]}
+      >
+        {categories.map((category) => (
+          <PressableLink
+            key={category}
+            href={`/${category.toLowerCase()}`}
+            pl={4}
+            justifyContent='flex-start'
+            fontSize='2xl'
+            color='cyan.50'
+            bg='cyan.500'
+            onClick={() => {
+              !isMuted && playClick();
+            }}
+          >
+            <Icon as={categoryIcons[category] as As} boxSize={12} />
+            <Text as='span' ml={4}>
+              {category}
+            </Text>
+          </PressableLink>
+        ))}
+      </Flex>
     </>
   );
 };

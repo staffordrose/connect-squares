@@ -88,7 +88,7 @@ const AppBar = ({ as, backHref, title, ...props }: AppBarProps) => {
         maxW={1280}
         minH={[20, 24]}
         mx='auto'
-        px={[4, null, 6]}
+        px={[4, 6]}
       >
         {backHref ? (
           <Button

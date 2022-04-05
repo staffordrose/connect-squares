@@ -21,7 +21,7 @@ const PieceConnectors = ({
       right={rotate === 90 ? (relRotate === 180 ? '-5%' : 0) : undefined}
       bottom={rotate === 180 ? (relRotate === 180 ? '-5%' : 0) : undefined}
       left={rotate === 270 ? (relRotate === 180 ? '-5%' : 0) : undefined}
-      zIndex={relRotate === 180 ? 2 : 0}
+      zIndex={1}
       gap='12.5%'
       justifyContent='center'
       w='100%'
@@ -43,6 +43,7 @@ const PieceConnectors = ({
             : rotate === 270
             ? `rotate(90deg) translateX(0%) translateY(100%)`
             : '',
+        transition: 'top 0.3s, right 0.3s, bottom 0.3s, left 0.3s',
       }}
     >
       {[...Array(count)].map((_, i) => (

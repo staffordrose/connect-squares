@@ -116,7 +116,6 @@ const BoardPiece = ({
 
       <Box
         position='absolute'
-        zIndex={1}
         top='12.5%'
         left='12.5%'
         w='75%'

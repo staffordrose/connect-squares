@@ -1,134 +1,134 @@
 [
   {},
+  {},
+  {},
+  {},
+  {},
+  {},
   {
-    "type": "xyr",
+    "type": "yr",
     "connectors": [
-      4,
-      3,
+      2,
       0,
+      4,
+      3
+    ],
+    "rotate": 0
+  },
+  {},
+  {
+    "type": "f",
+    "connectors": [
+      3,
+      4,
+      4,
       0
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "yr",
+    "connectors": [
+      0,
+      0,
+      4,
+      3
+    ],
+    "rotate": 180
+  },
+  {
+    "type": "x",
+    "connectors": [
+      0,
+      4,
+      1,
+      0
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "yr",
+    "connectors": [
+      0,
+      2,
+      2,
+      4
     ],
     "rotate": 0
   },
   {
     "type": "xyr",
     "connectors": [
-      4,
-      3,
-      4,
-      0
+      0,
+      2,
+      0,
+      2
     ],
     "rotate": 180
   },
   {
-    "type": "r",
+    "type": "x",
     "connectors": [
+      4,
       0,
-      3,
-      3,
+      0,
+      2
+    ],
+    "rotate": 0
+  },
+  {},
+  {},
+  {},
+  {
+    "type": "xy",
+    "connectors": [
+      4,
+      0,
+      0,
       1
     ],
-    "rotate": 180
+    "rotate": 0
   },
-  {},
-  {},
   {
-    "type": "xyr",
+    "type": "xy",
     "connectors": [
+      0,
       3,
-      0,
-      2,
-      4
+      3,
+      0
     ],
-    "rotate": 90
+    "rotate": 0
   },
+  {},
   {
-    "type": "y",
+    "type": "xy",
     "connectors": [
-      0,
       1,
-      0,
-      4
-    ],
-    "rotate": 0
-  },
-  {
-    "type": "y",
-    "connectors": [
       3,
-      4,
       3,
       0
     ],
     "rotate": 0
   },
-  {},
-  {},
-  {},
-  {},
-  {
-    "type": "r",
-    "connectors": [
-      3,
-      3,
-      4,
-      0
-    ],
-    "rotate": 180
-  },
-  {
-    "type": "r",
-    "connectors": [
-      2,
-      0,
-      2,
-      3
-    ],
-    "rotate": 90
-  },
-  {},
-  {
-    "type": "xyr",
-    "connectors": [
-      0,
-      4,
-      0,
-      0
-    ],
-    "rotate": 270
-  },
-  {},
-  {},
-  {
-    "type": "y",
-    "connectors": [
-      0,
-      0,
-      3,
-      3
-    ],
-    "rotate": 0
-  },
-  {},
   {},
   {},
   {
     "type": "xr",
     "connectors": [
-      2,
+      3,
+      1,
       0,
-      0,
-      3
+      0
     ],
-    "rotate": 0
+    "rotate": 90
   },
   {
-    "type": "y",
+    "type": "xy",
     "connectors": [
-      2,
+      4,
       0,
-      2,
-      3
+      0,
+      4
     ],
     "rotate": 0
   }

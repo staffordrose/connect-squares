@@ -1,41 +1,82 @@
 [
+  {
+    "type": "xy",
+    "connectors": [
+      4,
+      0,
+      1,
+      2
+    ],
+    "rotate": 0
+  },
   {},
   {
-    "type": "r",
+    "type": "f",
     "connectors": [
       0,
-      4,
+      3,
       3,
       4
     ],
-    "rotate": 90
+    "rotate": 0
   },
+  {},
   {
-    "type": "r",
+    "type": "xy",
     "connectors": [
       0,
+      0,
+      4,
+      3
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "f",
+    "connectors": [
       2,
-      1,
+      4,
+      4,
+      0
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "xyr",
+    "connectors": [
+      2,
+      2,
+      0,
+      0
+    ],
+    "rotate": 0
+  },
+  {
+    "type": "xy",
+    "connectors": [
+      3,
+      2,
+      3,
       4
     ],
     "rotate": 0
   },
   {
-    "type": "r",
+    "type": "xyr",
     "connectors": [
+      3,
       0,
       0,
-      2,
       2
     ],
-    "rotate": 180
+    "rotate": 0
   },
   {
-    "type": "r",
+    "type": "f",
     "connectors": [
-      2,
+      4,
       3,
-      2,
+      0,
       0
     ],
     "rotate": 0
@@ -44,39 +85,19 @@
     "type": "xyr",
     "connectors": [
       3,
-      4,
+      1,
       2,
       3
     ],
     "rotate": 270
   },
   {
-    "type": "xyr",
+    "type": "r",
     "connectors": [
       1,
-      4,
       0,
-      0
-    ],
-    "rotate": 270
-  },
-  {
-    "type": "f",
-    "connectors": [
-      2,
-      0,
-      0,
-      2
-    ],
-    "rotate": 0
-  },
-  {
-    "type": "xy",
-    "connectors": [
-      1,
-      2,
-      0,
-      4
+      3,
+      1
     ],
     "rotate": 0
   },
@@ -86,41 +107,20 @@
       0,
       4,
       2,
-      0
-    ],
-    "rotate": 0
-  },
-  {},
-  {},
-  {
-    "type": "xyr",
-    "connectors": [
-      2,
-      0,
-      3,
       2
     ],
     "rotate": 0
   },
   {
-    "type": "f",
+    "type": "xyr",
     "connectors": [
-      3,
       0,
+      2,
       0,
-      4
-    ],
-    "rotate": 0
-  },
-  {
-    "type": "xy",
-    "connectors": [
-      2,
-      2,
-      1,
       0
     ],
-    "rotate": 0
+    "rotate": 180
   },
+  {},
   {}
 ]

@@ -1,5 +1,7 @@
 import fs from 'fs';
-import shuffleBoardPieces from './shuffle-board-pieces.mjs';
+
+const transposeArray = (arr) =>
+  arr[0].map((_, colIndex) => arr.map((row) => row[colIndex]));
 
 const pieceProbabilities = {
   4: {
@@ -30,7 +32,7 @@ const pieceProbabilities = {
   },
 };
 
-const generatePieceType = (boardSize) => {
+const generatePieceType = function (boardSize) {
   const rand = Math.floor(Math.random() * 100);
   const keys = Object.keys(pieceProbabilities[boardSize]).map(Number);
   const key = keys.find((key) => rand < key);
@@ -38,20 +40,17 @@ const generatePieceType = (boardSize) => {
   return pieceProbabilities[boardSize][key];
 };
 
-const getPieceCount = (boardSize, levelIndex, levelsLength) => {
-  const levelProgress = levelIndex / levelsLength;
+const getPieceCount = function (boardLength, levelProgress) {
+  const minPieces = boardLength === 36 ? 12 : boardLength === 25 ? 10 : 4;
+  const minEmptySquares = boardLength === 36 ? 6 : boardLength === 25 ? 4 : 2;
 
-  const minPieces = boardSize === 6 ? 12 : boardSize === 5 ? 10 : 4;
-  const minEmptySquares = boardSize === 6 ? 6 : boardSize === 5 ? 4 : 2;
-  const piecesCount =
-    Math.round(
-      (boardSize * boardSize - minPieces - minEmptySquares) * levelProgress
-    ) + minPieces;
-
-  return piecesCount;
+  return (
+    Math.round((boardLength - minPieces - minEmptySquares) * levelProgress) +
+    minPieces
+  );
 };
 
-const getSurroundingIndices = (i, board) => {
+const getSurroundingIndices = function (i, board) {
   const boardSize = Math.sqrt(board.length);
 
   let index;
@@ -152,7 +151,7 @@ const getSurroundingIndices = (i, board) => {
   return index;
 };
 
-const setBoardPieces = (board, piecesCount) => {
+const setBoardPieces = function (board, piecesCount) {
   const boardSize = Math.sqrt(board.length);
 
   let prevBoardIndex;
@@ -176,7 +175,7 @@ const setBoardPieces = (board, piecesCount) => {
   }
 };
 
-const confirmAllPiecesAreConnected = (board) => {
+const confirmAllPiecesAreConnected = function (board) {
   if (!board.length) return false;
 
   const boardSize = Math.sqrt(board.length);
@@ -202,9 +201,7 @@ const confirmAllPiecesAreConnected = (board) => {
   return true;
 };
 
-const pieceConnectors = [0, 1, 2, 3, 4];
-
-const generatePieceConnectors = (board) => {
+const generatePieceConnectors = function (board) {
   const boardSize = Math.sqrt(board.length);
 
   for (let i = 0; i < board.length; i++) {
@@ -212,16 +209,12 @@ const generatePieceConnectors = (board) => {
 
     // Bottom side
     if (i < boardSize * (boardSize - 1) && board[i + boardSize]?.type) {
-      board[i].connectors[2] = Math.ceil(
-        Math.random() * (pieceConnectors.length - 1)
-      );
+      board[i].connectors[2] = Math.ceil(Math.random() * 4);
     }
 
     // Right side
     if (i % boardSize < boardSize - 1 && board[i + 1]?.type) {
-      board[i].connectors[1] = Math.ceil(
-        Math.random() * (pieceConnectors.length - 1)
-      );
+      board[i].connectors[1] = Math.ceil(Math.random() * 4);
     }
   }
 
@@ -240,13 +233,91 @@ const generatePieceConnectors = (board) => {
   }
 };
 
-const boardSizes = [
-  4, // normal
-  5, // hard
-  6, // expert
-];
+// Keep board position of pieces that can't be moved.
+const getKeepSquares = function (arr, keepTypes) {
+  return arr.reduce(
+    (accum, curr, i) => (keepTypes.includes(curr.type) && accum.push(i), accum),
+    []
+  );
+};
 
-const generateLevels = (count = 100) => {
+const filterAndShuffle = function (arr, keepIndices) {
+  return arr
+    .filter(({}, i) => !keepIndices.includes(i))
+    .sort(() => 0.5 - Math.random());
+};
+
+const addBackKeepSquares = function (arr, referenceArr, keepIndices) {
+  for (const index of keepIndices) {
+    arr.splice(index, 0, referenceArr[index]);
+  }
+};
+
+const shuffleSquares = function (board) {
+  const boardSize = Math.sqrt(board.length);
+
+  // Shuffle pieces that can move along x-axis and y-axis.
+  const keepSquares = getKeepSquares(board, ['f', 'r', 'x', 'y', 'xr', 'yr']);
+  let initialShuffled = filterAndShuffle(board, keepSquares);
+  addBackKeepSquares(initialShuffled, board, keepSquares);
+
+  // Shuffle pieces that can move along x-axis.
+  let xShuffled = [];
+  for (let i = 0; i < initialShuffled.length; i += boardSize) {
+    const boardRow = initialShuffled.slice(i, i + boardSize);
+
+    const keepSquares = getKeepSquares(boardRow, ['f', 'r', 'y', 'yr']);
+    let shuffled = filterAndShuffle(boardRow, keepSquares);
+    addBackKeepSquares(shuffled, boardRow, keepSquares);
+
+    xShuffled = [...xShuffled, ...shuffled];
+  }
+
+  // Shuffle pieces that can move along y-axis.
+  let yGroupsShuffled = [];
+  for (let i = 0; i < xShuffled.length; i += boardSize) {
+    const boardCol = xShuffled.filter(
+      (_, index) => index % boardSize === i / boardSize
+    );
+
+    const keepSquares = getKeepSquares(boardCol, ['f', 'r', 'x', 'xr']);
+    let shuffled = filterAndShuffle(boardCol, keepSquares);
+    addBackKeepSquares(shuffled, boardCol, keepSquares);
+
+    yGroupsShuffled.push(shuffled);
+  }
+  yGroupsShuffled = transposeArray(yGroupsShuffled);
+
+  return yGroupsShuffled.flat();
+};
+
+const rotatePieces = function (board) {
+  return board.reduce((accum, curr, i) => {
+    // Randomly rotate all pieces that can be rotated.
+    if (curr.type && !['f', 'x', 'y', 'xy'].includes(curr.type)) {
+      accum[i] = { ...curr, rotate: Math.floor(Math.random() * 4) * 90 };
+    } else {
+      accum[i] = curr;
+    }
+
+    return accum;
+  }, []);
+};
+
+const shuffleBoardPieces = function (board) {
+  let result = shuffleSquares(board);
+  result = rotatePieces(result);
+
+  return result;
+};
+
+const boardSizes = {
+  4: 'normal',
+  5: 'hard',
+  6: 'expert',
+};
+
+(function () {
   let levels = {
     normal: [],
     hard: [],
@@ -254,11 +325,16 @@ const generateLevels = (count = 100) => {
   };
 
   // Determine how many levels to generate.
-  const emptyLevels = [...Array(count)].map((_, i) => i);
+  const emptyLevels = [...Array(100)].map((_, i) => i);
 
-  for (const boardSize of boardSizes) {
+  for (const size in boardSizes) {
+    const boardSize = parseInt(size);
+
     for (const level of emptyLevels) {
-      const pieceCount = getPieceCount(boardSize, level, emptyLevels.length);
+      const pieceCount = getPieceCount(
+        boardSize * boardSize,
+        level / emptyLevels.length
+      );
 
       let board = [];
 
@@ -271,46 +347,27 @@ const generateLevels = (count = 100) => {
 
       const shuffled = shuffleBoardPieces(board);
 
-      const category =
-        boardSize === 6 ? 'expert' : boardSize === 5 ? 'hard' : 'normal';
+      const category = boardSizes[size];
 
       levels[category][level] = shuffled;
     }
   }
 
-  // Write to Next.js public directory.
   if (!fs.existsSync('public/levels')) {
     fs.mkdirSync('public/levels');
-
-    if (!fs.existsSync('public/levels/normal')) {
-      fs.mkdirSync('public/levels/normal');
-    }
-    if (!fs.existsSync('public/levels/hard')) {
-      fs.mkdirSync('public/levels/hard');
-    }
-    if (!fs.existsSync('public/levels/expert')) {
-      fs.mkdirSync('public/levels/expert');
-    }
   }
 
-  for (let i = 0; i < levels.normal.length; i++) {
-    let data = JSON.stringify(levels.normal[i], null, 2);
-    fs.writeFile(`public/levels/normal/${i + 1}.json`, data, (err) => {
-      if (err) throw err;
-    });
-  }
-  for (let i = 0; i < levels.hard.length; i++) {
-    let data = JSON.stringify(levels.hard[i], null, 2);
-    fs.writeFile(`public/levels/hard/${i + 1}.json`, data, (err) => {
-      if (err) throw err;
-    });
-  }
-  for (let i = 0; i < levels.expert.length; i++) {
-    let data = JSON.stringify(levels.expert[i], null, 2);
-    fs.writeFile(`public/levels/expert/${i + 1}.json`, data, (err) => {
-      if (err) throw err;
-    });
-  }
-};
+  // Write to public levels directories.
+  ['normal', 'hard', 'expert'].forEach((category) => {
+    if (!fs.existsSync(`public/levels/${category}`)) {
+      fs.mkdirSync(`public/levels/${category}`);
+    }
 
-generateLevels();
+    for (let i = 0; i < levels[category].length; i++) {
+      let data = JSON.stringify(levels[category][i], null, 2);
+      fs.writeFile(`public/levels/${category}/${i + 1}.json`, data, (err) => {
+        if (err) throw err;
+      });
+    }
+  });
+})();

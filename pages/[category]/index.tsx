@@ -62,6 +62,7 @@ const Category: NextPage<{
             'repeat(auto-fit, minmax(120px, 1fr))',
           ]}
           gap={[4, 6]}
+          w='100%'
           mb={16}
         >
           {levels.map((_, i) => {

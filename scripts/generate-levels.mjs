@@ -3,6 +3,13 @@ import fs from 'fs';
 const transposeArray = (arr) =>
   arr[0].map((_, colIndex) => arr.map((row) => row[colIndex]));
 
+const getPieceCount = function (boardLength, levelProgress) {
+  const minPieces = boardLength === 36 ? 12 : boardLength === 25 ? 10 : 4;
+  const maxPieces = boardLength === 36 ? 30 : boardLength === 25 ? 21 : 14;
+
+  return Math.round((maxPieces - minPieces) * levelProgress) + minPieces;
+};
+
 const pieceProbabilities = {
   4: {
     10: 'f', // 10%
@@ -38,16 +45,6 @@ const generatePieceType = function (boardSize) {
   const key = keys.find((key) => rand < key);
 
   return pieceProbabilities[boardSize][key];
-};
-
-const getPieceCount = function (boardLength, levelProgress) {
-  const minPieces = boardLength === 36 ? 12 : boardLength === 25 ? 10 : 4;
-  const minEmptySquares = boardLength === 36 ? 6 : boardLength === 25 ? 4 : 2;
-
-  return (
-    Math.round((boardLength - minPieces - minEmptySquares) * levelProgress) +
-    minPieces
-  );
 };
 
 const getSurroundingIndices = function (i, board) {

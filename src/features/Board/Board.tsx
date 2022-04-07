@@ -124,9 +124,11 @@ const Board = ({ level, levelNum, onSuccess, nextHref }: BoardProps) => {
           router.push(router.asPath);
           onClose();
         }}
-        handleContinue={() => {
+        handleContinue={async () => {
           !isMuted && playClick();
           if (nextHref) {
+            onClose();
+            await new Promise((resolve) => setTimeout(resolve, 500));
             router.push(`${nextHref}`);
           } else {
             onClose();

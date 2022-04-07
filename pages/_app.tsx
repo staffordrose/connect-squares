@@ -3,7 +3,8 @@ import '@fontsource/roboto/700.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Flex } from '@chakra-ui/react';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import theme from '@/common/theme';
 import { toTitleCase } from '@/common/utils';
 import { AppBar } from '@/components';
@@ -67,7 +68,19 @@ function MyApp({ Component, pageProps }: AppProps) {
             backHref={backHref}
             title={title}
           />
-          <Component {...pageProps} key={router.asPath} />
+          <LazyMotion features={domAnimation}>
+            <AnimatePresence exitBeforeEnter={true}>
+              <m.div
+                key={router.asPath}
+                className='page-wrap'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <Component {...pageProps} />
+              </m.div>
+            </AnimatePresence>
+          </LazyMotion>
         </VolumeContextProvider>
       </ChakraProvider>
     </>

@@ -30,59 +30,65 @@ const Home: NextPage = () => {
       </Head>
 
       <Flex
-        as='header'
         flexDir='column'
         gap={3}
-        justifyContent='center'
+        justifyContent='space-evenly'
         alignItems='center'
         w='100%'
         maxW={1280}
+        minH={['calc(100vh - 80px)', 'calc(100vh - 96px)']}
         mx='auto'
         px={[4, 6]}
-        py={[6, 8]}
+        pb={['80px', '96px']}
       >
-        <Image
-          src='/logo.svg'
-          alt='Connect Squares Logo'
-          w={[228, 266]}
-          h={[177.6, 207.2]}
-        />
+        <Flex
+          as='header'
+          flexDir='column'
+          gap={3}
+          justifyContent='center'
+          alignItems='center'
+          w='100%'
+        >
+          <Image
+            src='/logo.svg'
+            alt='Connect Squares Logo'
+            w={[228, 266]}
+            h={[177.6, 207.2]}
+          />
 
-        <Heading as='h1' color='cyan.900'>
-          Connect Squares
-        </Heading>
-      </Flex>
+          <Heading as='h1' color='cyan.900'>
+            Connect Squares
+          </Heading>
+        </Flex>
 
-      <Flex
-        as='main'
-        flexDir='column'
-        justifyContent='center'
-        gap={[4, 6]}
-        w='100%'
-        maxW={[220, 240]}
-        mx='auto'
-        px={[4, 6]}
-        py={[6, 8]}
-      >
-        {categories.map((category) => (
-          <PressableLink
-            key={category}
-            href={`/${category.toLowerCase()}`}
-            pl={4}
-            justifyContent='flex-start'
-            fontSize='2xl'
-            color='cyan.50'
-            bg='cyan.500'
-            onClick={() => {
-              !isMuted && playClick();
-            }}
-          >
-            <Icon as={categoryIcons[category] as As} boxSize={12} />
-            <Text as='span' ml={4}>
-              {category}
-            </Text>
-          </PressableLink>
-        ))}
+        <Flex
+          as='main'
+          flexDir='column'
+          justifyContent='center'
+          gap={[4, 6]}
+          w='100%'
+          maxW={[220, 240]}
+        >
+          {categories.map((category) => (
+            <PressableLink
+              key={category}
+              href={`/${category.toLowerCase()}`}
+              pl={4}
+              justifyContent='flex-start'
+              fontSize='2xl'
+              color='cyan.50'
+              bg='cyan.500'
+              onClick={() => {
+                !isMuted && playClick();
+              }}
+            >
+              <Icon as={categoryIcons[category] as As} boxSize={12} />
+              <Text as='span' ml={4}>
+                {category}
+              </Text>
+            </PressableLink>
+          ))}
+        </Flex>
       </Flex>
     </>
   );

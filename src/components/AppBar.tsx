@@ -67,6 +67,7 @@ const AppBar = ({ as, backHref, title, ...props }: AppBarProps) => {
       zIndex='modal'
       top={0}
       left={0}
+      w='100%'
       backdropFilter='blur(4px)'
       _after={{
         content: '""',
@@ -85,7 +86,7 @@ const AppBar = ({ as, backHref, title, ...props }: AppBarProps) => {
         gap={[1.5, 2.5]}
         alignItems='center'
         w='100%'
-        maxW={1280}
+        maxW={1920}
         minH={[20, 24]}
         mx='auto'
         px={[4, 6]}

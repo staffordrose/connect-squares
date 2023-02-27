@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { AspectRatio, Box, Grid, useDisclosure } from '@chakra-ui/react';
+import { Box, Grid, useDisclosure } from '@chakra-ui/react';
 import { Piece, PieceType, Point } from '@/common/types';
 import { arrayToObject } from '@/common/utils';
 import { useVolumeContext } from '@/context';
@@ -137,6 +137,8 @@ const Board = ({ level, levelNum, onSuccess, nextHref }: BoardProps) => {
       />
 
       <Box
+        position='relative'
+        display='inline-block'
         w='100%'
         maxW={
           boardSize === 6
@@ -148,55 +150,63 @@ const Board = ({ level, levelNum, onSuccess, nextHref }: BoardProps) => {
         borderRadius={10}
         bg='cyan.800'
       >
-        <AspectRatio w='100%' transform='translateY(-15px)' ratio={1}>
-          <Box w='100%' h='100%' borderRadius={10} bg='cyan.500'>
-            <Grid
-              ref={boardRef}
-              templateColumns={`repeat(${boardSize}, 1fr)`}
-              templateRows={`repeat(${boardSize}, 1fr)`}
-              w='100%'
-              h='100%'
-              p={2}
-            >
-              {Object.values(board).map((piece, i) => (
-                <Box
-                  key={i}
-                  ref={(el) => (squaresRef.current[i] = el)}
-                  position='relative'
-                  w='100%'
-                  h='100%'
-                  _after={{
-                    content: '""',
-                    position: 'absolute',
-                    zIndex: 0,
-                    top: 0,
-                    left: 0,
-                    w: '100%',
-                    h: '100%',
-                    borderWidth: 3,
-                    borderStyle: 'solid',
-                    borderColor: 'cyan.500',
-                    borderRadius: 8,
-                    bg: 'cyan.700',
-                    boxShadow: 'inset 0 4px 4px 0 rgba(6, 86, 102,0.75)',
-                  }}
-                >
-                  {!!piece?.type && (
-                    <BoardPiece
-                      {...piece}
-                      boardRef={boardRef}
-                      pauseAnimation={pauseAnimation.current}
-                      rotatePiece={() => rotatePiece(i)}
-                      movePiece={(type: PieceType, point: Point) =>
-                        movePiece(i, type, point)
-                      }
-                    />
-                  )}
-                </Box>
-              ))}
-            </Grid>
-          </Box>
-        </AspectRatio>
+        <Box marginTop='100%' />
+        <Box
+          position='absolute'
+          top={0}
+          right={0}
+          bottom={0}
+          left={0}
+          borderRadius={10}
+          bg='cyan.500'
+          transform='translateY(-15px)'
+        >
+          <Grid
+            ref={boardRef}
+            templateColumns={`repeat(${boardSize}, 1fr)`}
+            templateRows={`repeat(${boardSize}, 1fr)`}
+            w='100%'
+            h='100%'
+            p={2}
+          >
+            {Object.values(board).map((piece, i) => (
+              <Box
+                key={i}
+                ref={(el) => (squaresRef.current[i] = el)}
+                position='relative'
+                w='100%'
+                h='100%'
+                _after={{
+                  content: '""',
+                  position: 'absolute',
+                  zIndex: 0,
+                  top: 0,
+                  left: 0,
+                  w: '100%',
+                  h: '100%',
+                  borderWidth: 3,
+                  borderStyle: 'solid',
+                  borderColor: 'cyan.500',
+                  borderRadius: 8,
+                  bg: 'cyan.700',
+                  boxShadow: 'inset 0 4px 4px 0 rgba(6, 86, 102,0.75)',
+                }}
+              >
+                {!!piece?.type && (
+                  <BoardPiece
+                    {...piece}
+                    boardRef={boardRef}
+                    pauseAnimation={pauseAnimation.current}
+                    rotatePiece={() => rotatePiece(i)}
+                    movePiece={(type: PieceType, point: Point) =>
+                      movePiece(i, type, point)
+                    }
+                  />
+                )}
+              </Box>
+            ))}
+          </Grid>
+        </Box>
       </Box>
     </>
   );
